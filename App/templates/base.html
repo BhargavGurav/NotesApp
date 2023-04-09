@@ -1,0 +1,220 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>टिप्पणीपुस्तिका</title>
+
+    <!-- title logo setting  -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="shortcut icon" href="{% static 'images/title-icon.ico' %}">
+
+    <!-- custome css  -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+    <!-- bootstrap 5 css  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- aos css  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- fontawesome cdn  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .swal-text{
+      font-weight: 900;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+    
+<!-- navbar  -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">NOTES</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="/#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-outline-info me-2" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
+              </li>
+              {% if  user.is_authenticated %}
+              {% block user-icon %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'dashboard' %}"><i class="fa fa-user"></i></a>
+              </li>
+              {% endblock %}
+              {% else %}
+              <li class="nav-item">
+                <a class="btn btn-outline-light" href="{% url 'loginuser' %}">Login</a>
+              </li>
+              {% endif %}
+              {% block nav-btn %}
+              {% endblock %}
+              <!-- <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Contact
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li> -->
+          
+            </ul>
+        
+          </div>
+        </div>
+      </nav>
+<!-- navbar  -->
+
+<!-- ******************************* LOGOUT Modal ******************************-->
+<div class="modal" id="logoutmodal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Sign Out</h4>
+        <button class="btn btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p class="fs-4">Sure want to Sign out?</p>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-danger" href="{% url 'logoutuser' %}">YES</a>
+        <button class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ******************************* Register Modal ******************************-->
+<div class="modal" id="registerModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" style="font-weight: bold;">Registration Form</h4>
+        <button class="btn btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form action="registration/" method="post" class="mt-2">{% csrf_token %}
+          <div class="form-group mt-2">
+            <label for="" style="font-weight: bold;">Email-ID</label>
+            <input type="email" name="email" class="form-control" id="">
+          </div>
+          <div class="form-group mt-2">
+            <label for="" style="font-weight: bold;">Password</label>
+            <input type="password" name="password" class="form-control" id="password2">
+          </div>
+          <input type="checkbox" name="" id="passwordCheck" onclick="Showpass1()" > <span> Click to see Password </span>
+          <div class="d-grid mt-2">
+            <button class="btn btn-success rounded-pill">Register</button>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% block page-data %}
+{% endblock %}
+
+<section id="contact" >
+    <div class="container-fluid bg-dark text-light text-center py-2">
+        <h5>Copyright &copy; All rights reserved <i class="fa fa-heart text-danger"></i></h5>
+    </div>
+</section>
+
+
+    <!-- bootstrap 5 js  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- aos js  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- *********************************CREATE NOTE MODAL ***************************-->
+<div class="modal" id="createnotemodal">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h3 class="text-center">Create Note</h3>
+              <button class="btn btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+              <form action="/collect_note/" method="post">{% csrf_token %}
+                  <div class="input-group mt-3">
+                      
+                      <input type="text" class="form-control" name="subject" placeholder="Subject..">
+                  </div>
+                  <div class="input-group mt-3">
+                     
+                      <textarea name="note" id="" class="form-control" placeholder="Note...."></textarea>
+                  </div>
+
+                  <div class="d-grid mt-3 mb-2">
+                    <button type="submit" class="btn btn-success">SAVE</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div> 
+
+   <!-- *********************************Upload NOTE MODAL ***************************-->
+   <div class="modal" id="uploadnotemodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="text-center">Upload Note</h3>
+                <button class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/upload_note/" method="post" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="input-group mt-3">
+                        
+                        <input type="text" class="form-control" name="subject" placeholder="Subject..">
+                    </div>
+                    <div class="input-group mt-3">
+                       <input type="file" name="note" id="">
+                    </div>
+  
+                    <div class="d-grid mt-3 mb-2">
+                      <button type="submit" class="btn btn-success">SAVE</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div> 
+  
+  <script>
+    function Showpass1(){
+        let password = document.getElementById('password2');
+        if(password.type == "password"){
+            password.type = "text";
+        }
+        else{
+            password.type = "password";
+        }
+    }
+</script>
+
+</body>
+</html>
+
+<!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus esse consectetur facere magnam sunt quia quos repellat voluptatem, exercitationem ipsa quis optio illum? Ab, tempora blanditiis commodi ipsa facere ipsam! Odio, minima possimus beatae repellendus doloremque facilis aut ipsam unde deleniti inventore? Deleniti mollitia repellendus amet voluptas. Laboriosam numquam sapiente laborum repellat aspernatur error nobis temporibus omnis? Incidunt, perferendis vitae officiis aspernatur animi neque eaque ducimus tenetur mollitia tempora iusto dignissimos, illum eum iste fugiat eos assumenda. Nulla nobis, debitis ducimus ea dolorum eveniet aliquam odio, in aut cupiditate similique facere ad natus sunt? Quisquam eos libero ipsa sapiente error. -->

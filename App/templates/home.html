@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% if not user.is_authenticated %}
+{% block page-data %}
+<section id="home">
+    <div class="container-fluid home-container d-flex justify-content-center align-items-center">
+        <div class="home-content text-light">
+            <h4>Let's make note of it !</h4>
+            <div class="d-flex justify-content-between">
+                <a href="#" class="btn btn-lg btn-info" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
+                {% if not user.is_authenticated %}
+                <a href="{% url 'loginuser' %}" class="btn btn-lg btn-warning">Login</a>
+                {% endif %}
+            </div>
+            
+        </div>
+    </div>
+</section>
+{% for message in messages %}
+    {% if message.tags == 'success' %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        var m = '{{message}}';
+        swal('', m, 'success');
+    </script>
+    {% elif message.tags == 'error' %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        var m = '{{message}}';
+        swal('', m, 'error');
+    </script>
+    {% endif %}
+    {% endfor %}
+{% endblock %}
+{% endif %}

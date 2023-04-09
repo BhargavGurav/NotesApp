@@ -1,0 +1,125 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+.show .nav-item{
+  margin-top: 10px !important;
+}
+/* *******************************home****************************************  */
+.home-container{
+  position: relative;
+  background-image: url('../images/home-bg.jpeg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 85.5vh;
+  width: 100%;
+  /* padding: 60px 0 60px 0; */
+}
+.home-container::before{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .3);
+}
+.home-container div{
+  position: relative;
+}
+
+
+/* *******************************loginuser****************************************  */
+.login-container{
+  position: relative;
+  background-image: url('../images/login.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 85.5vh;
+  width: 100%;
+  /* padding: 60px 0 60px 0; */
+}
+.login-container::before{
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .3);
+}
+.login-container .row{
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container .row form{
+  border: rgba(255, 255, 255, .3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .3);
+  backdrop-filter: blur(5px);
+  
+
+}
+
+/* **********************************************dashboard************************************************  */
+.dash-container{
+  background-color: whitesmoke;
+  height: 87vh;
+}
+.dash-container .row{
+  /* background-color: whitesmoke; */
+  height: 100%;
+}
+.dash-container .row .create-box, .dash-container .row .upload-box{
+  height: 50%;
+  width: 30%;
+  border: 2px dashed black;
+  /* background: red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  border-radius: 7px;
+}
+.dash-container .row .upload-box{
+
+}
+
+#note-maker{
+  height: 40vh;
+  /* border: 2px solid black; */
+}
+#note-maker .row{
+  height: 100%;
+}
+#subjects-column{
+  border: 2px solid black;
+  height: ;
+}
+
+.dash-container .notes-notify{
+  background: black;
+  border-radius: 7px;
+  padding: 15px;
+  text-align: center;
+  color: white;
+}
+
+
+.dash-container{
+  overflow-x: scroll;
+  /* background-color: aqua; */
+}

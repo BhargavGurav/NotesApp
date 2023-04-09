@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% block nav-btn %}
+<li class="nav-item">
+    <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#logoutmodal" >Logout</a>
+  </li>
+
+
+{% endblock %}
+{% block user-icon %}{% endblock %}
+
+
+
+{% block page-data %}
+
+<div class="container-fluid dash-container">
+    <div class="row">
+        <div class="col-lg-4" id="subjects-column">
+            <h2 class="text-center">SUBJECTS</h2>
+            <div class="d-grid gap-2">
+                {% for i in subjects %}
+                    <button  class="btn btn-dark p-2">{{i}}</button>
+                {% endfor %}
+                
+            </div>
+            
+        </div>
+        <div class="col-lg-8">
+            <div class="container " id="note-maker">
+                <div class="row d-flex justify-content-around align-items-center">
+                    <div class="col-lg-5 create-box">
+                        <button class="btn" data-bs-toggle="modal" data-bs-target="#createnotemodal">
+                            <i class="fas fa-plus fs-2"></i>
+                            <p>Create Note</p>
+                        </button>
+                        
+                    </div>
+                    <div class="col-lg-5 upload-box">
+                        <button class="btn" data-bs-toggle="modal" data-bs-target="#uploadnotemodal">
+
+                        <i class="fas fa-folder fs-2"></i>
+                        <p>Upload Notes</p>
+                        </button>
+
+                    </div>
+                </div>
+                
+            </div>
+            <div class="container " id="notes-noti-container">
+                <div class="row d-flex justify-content-center">
+                    {% for i in notes %}
+                    <button class="btn" data-bs-toggle="modal" data-bs-target="#noteModal{{i.pk}}">
+                        <div class="col-12 notes-notify" >
+                            <p>Note created about {{i.subject}} on {{i.created_on }}</p>
+                        </div>
+                    </button>
+                        
+  <!-- ***************************** note showing modal *******************************-->                 
+                    <div class="modal" id="noteModal{{i.pk}}">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">{{i.subject}} Note created on {{i.created_on}}</h4>
+                                    <button class="btn btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>{{i.note}}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    {% for i in notes2 %}
+                    <button class="btn" data-bs-toggle="modal" data-bs-target="#uploadednote{{i.pk}}">
+                        <div class="col-12 notes-notify" >
+                            <p>Note uploaded about {{i.subject}} on {{i.created_on }}</p>
+                        </div>
+                    </button>
+                        
+  <!-- ***************************** note showing modal *******************************-->                 
+                    <div class="modal" id="uploadednote{{i.pk}}">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">{{i.subject}} Note uploaded on {{i.created_on}}</h4>
+                                    <button class="btn btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <a href="../../media/{{i.note_file}}" class="btn btn-outline-dark">Show file</a>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>   
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+<!-- *********************************CREATE NOTE MODAL ***************************-->
+<!-- <div class="modal" id="createnotemodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="text-center">Create Note</h3>
+                <button class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post">
+                    <div class="input-group mt-3">
+                        <label for="">Subject</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="input-group mt-3">
+                        <label for="">Note</label>
+                        <textarea class="form-control">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->
+{% for message in messages %}
+{% if message.tags == 'success' %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    var m = '{{message}}';
+    swal('', m, 'success');
+</script>
+{% elif message.tags == 'error' %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    var m = '{{message}}';
+    swal('', m, 'error');
+</script>
+{% endif %}
+{% endfor %}
+
+
+{% endblock page-data %}
+
+
