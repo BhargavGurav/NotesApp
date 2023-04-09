@@ -1,6 +1,6 @@
 # NotesApp
 <hr>
-<h2> This is a notes taking webapp for students or any working professional </h2>
+<h2> This is a notes taking webapp for students or any working professional(created using Django framework by me) </h2>
 <hr>
 <p>It registers user with only email and password. Then user can login into the site.</p>
 <p>After login user can either save note by creating it or can upload some file as a note.</p>
